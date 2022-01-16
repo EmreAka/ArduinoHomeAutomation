@@ -43,9 +43,9 @@ void loop() {
   TEMP_VOLTAGE = (LM35_READING / 1023.0)*5000;
   TEMP = TEMP_VOLTAGE / 10;
   //sending datas of sensors to serial port.
-  Serial.print("Motion: ");
+  Serial.print("MOTION: ");
   Serial.println(digitalRead(PIR));
-  Serial.print("Light: ");
+  Serial.print("LDR'S VALUE: ");
   Serial.println(analogRead(LDR));
   Serial.print("LM35 READING: ");
   Serial.println(LM35_READING);
@@ -53,7 +53,7 @@ void loop() {
   Serial.println(TEMP_VOLTAGE);
   Serial.print("TEMP: ");
   Serial.println(TEMP);
-  Serial.print("Alarm: ");
+  Serial.print("ALARM: ");
   if (isAlarmOn){
     Serial.println("ON");
   } else {

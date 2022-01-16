@@ -11,7 +11,7 @@
         <Button Content="ON" Click="Button_Click" HorizontalAlignment="Left" Margin="203,16,0,0" VerticalAlignment="Top" Height="71" Width="89"/>
         <Button Content="OF" Click="Button_Click1" HorizontalAlignment="Left" Margin="320,16,0,0" VerticalAlignment="Top" Height="72" Width="97"/>
         <Label x:Name="alarmIs" Content="ALARM: ON" HorizontalAlignment="Left" Margin="22,27,0,0" VerticalAlignment="Top" Width="176" Height="54" FontSize="24" FontWeight="Bold" FontFamily="Artifakt Element Heavy"/>
-        <Label x:Name="lightIs" Content="LIGHT SENSOR'S VALUE: " Margin="22,269,114,90" FontSize="24" FontWeight="Bold" FontFamily="Artifakt Element Heavy"/>
+        <Label x:Name="lightIs" Content="LDR'S VALUE: " Margin="22,269,114,90" FontSize="24" FontWeight="Bold" FontFamily="Artifakt Element Heavy"/>
         <Label x:Name="motionIs" Content="MOTION: " Margin="22,192,114,165" FontSize="24" FontWeight="Bold" FontFamily="Artifakt Element Heavy" RenderTransformOrigin="0.498,0.447"/>
         <Label x:Name="tempIs" Content="TEMP: " Margin="22,117,114,242" FontSize="24" FontWeight="Bold" FontFamily="Artifakt Element Heavy"/>
     </Grid>

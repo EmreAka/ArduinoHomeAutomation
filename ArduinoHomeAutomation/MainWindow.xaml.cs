@@ -21,7 +21,7 @@ namespace ArduinoHomeAutomation
         SerialPort mySerialPort = new SerialPort("COM3");
         string temp = "TEMP: 00.00";
         string motion = "MOTION: 0";
-        string lightSensor = "LIGHT SENSOR'S VALUE: 0";
+        string lightSensor = "LDR'S VALUE: 0";
         string alarm = "ALARM: ON";
 
         public MainWindow()
@@ -45,15 +45,15 @@ namespace ArduinoHomeAutomation
             {
                 temp = indata;
             }
-            if (indata.Contains("Motion"))
+            if (indata.Contains("MOTION"))
             {
                 motion = indata;
             }
-            if (indata.Contains("Light"))
+            if (indata.Contains("LDR"))
             {
                 lightSensor = indata;
             }
-            if (indata.Contains("Alarm"))
+            if (indata.Contains("ALARM"))
             {
                 alarm = indata;
             }
