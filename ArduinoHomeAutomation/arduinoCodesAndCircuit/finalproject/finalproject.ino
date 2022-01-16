@@ -66,14 +66,11 @@ void loop() {
   //LDR
   if(analogRead(LDR) > 500)
   {
-    digitalWrite(GREENLED, HIGH);
-    digitalWrite(RELAY_01, HIGH);
-    
+    digitalWrite(GREENLED, HIGH);    
   }
   else
   {
     digitalWrite(GREENLED, LOW);
-    digitalWrite(RELAY_01, LOW);
   }
   //PIR
   if(digitalRead(PIR) == 1 && isAlarmOn)
@@ -88,10 +85,12 @@ void loop() {
   if(TEMP < 30)
   {
     digitalWrite(WHITELED, HIGH);
+    digitalWrite(RELAY_01, HIGH);
   }
   else
   {
     digitalWrite(WHITELED, LOW);
+    digitalWrite(RELAY_01, LOW);
   }
 }
 
