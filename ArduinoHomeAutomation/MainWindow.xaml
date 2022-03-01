@@ -4,15 +4,39 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArduinoHomeAutomation"
-        mc:Ignorable="d"
-        Title="Home Automation" Height="450" Width="450
-        ">
+        mc:Ignorable="d" FontSize="24"
+        Title="Home Automation" MinHeight="300" MinWidth="400" Height="450" Width="450
+        " FontFamily="Segoe UI Light">
     <Grid>
-        <Button Content="ON" Click="Button_Click" HorizontalAlignment="Left" Margin="203,16,0,0" VerticalAlignment="Top" Height="71" Width="89"/>
-        <Button Content="OF" Click="Button_Click1" HorizontalAlignment="Left" Margin="320,16,0,0" VerticalAlignment="Top" Height="72" Width="97"/>
-        <Label x:Name="alarmIs" Content="ALARM: ON" HorizontalAlignment="Left" Margin="22,27,0,0" VerticalAlignment="Top" Width="176" Height="54" FontSize="24" FontWeight="Bold" FontFamily="Artifakt Element Heavy"/>
-        <Label x:Name="lightIs" Content="LDR'S VALUE: " Margin="22,269,114,90" FontSize="24" FontWeight="Bold" FontFamily="Artifakt Element Heavy"/>
-        <Label x:Name="motionIs" Content="MOTION: " Margin="22,192,114,165" FontSize="24" FontWeight="Bold" FontFamily="Artifakt Element Heavy" RenderTransformOrigin="0.498,0.447"/>
-        <Label x:Name="tempIs" Content="TEMP: " Margin="22,117,114,242" FontSize="24" FontWeight="Bold" FontFamily="Artifakt Element Heavy"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="1" Grid.Column="3" Content="ON" Click="Button_Click" Background="BlueViolet" Foreground="White" Margin="0,0,10,0"/>
+        <Button Grid.Row="1" Grid.Column="4" Content="OF" Click="Button_Click1" Background="BlueViolet" Foreground="White" Margin="10,0,0,0"/>
+        <Label Grid.Row="1" Grid.Column="1" Content="ALARM: "/>
+        <Label Grid.Row="2" Grid.Column="1" Content="LDR'S VALUE: "/>
+        <Label Grid.Row="3" Grid.Column="1" Content="MOTION: "/>
+        <Label Grid.Row="4" Grid.Column="1" Content="TEMP: "/>
+
+        <Label Grid.Row="1" Grid.Column="2" x:Name="alarmIs" Content="NULL" Margin="0,0,10,0"/>
+        <Label Grid.Row="2" Grid.Column="2" x:Name="lightIs" Content="NULL"/>
+        <Label Grid.Row="3" Grid.Column="2" x:Name="motionIs" Content="NULL"/>
+        <Label Grid.Row="4" Grid.Column="2" x:Name="tempIs" Content="NULL"/>
     </Grid>
+
 </Window>

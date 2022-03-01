@@ -19,10 +19,14 @@ namespace ArduinoHomeAutomation
     public partial class MainWindow : Window
     {
         SerialPort mySerialPort = new SerialPort("COM3");
-        string temp = "TEMP: 00.00";
-        string motion = "MOTION: 0";
-        string lightSensor = "LDR'S VALUE: 0";
-        string alarm = "ALARM: ON";
+        //string temp = "TEMP: 00.00";
+        //string motion = "MOTION: 0";
+        //string lightSensor = "LDR'S VALUE: 0";
+        //string alarm = "ALARM: ON";
+        string temp = "NULL";
+        string motion = "NULL";
+        string lightSensor = "NULL";
+        string alarm = "NULL";
 
         public MainWindow()
         {
@@ -43,19 +47,19 @@ namespace ArduinoHomeAutomation
             string indata = sp.ReadLine();
             if (indata.Contains("TEMP"))
             {
-                temp = indata;
+                temp = indata.Substring(indata.IndexOf(": ")+1).Trim();
             }
             if (indata.Contains("MOTION"))
             {
-                motion = indata;
+                motion = indata.Substring(indata.IndexOf(": ")+1).Trim();
             }
             if (indata.Contains("LDR"))
             {
-                lightSensor = indata;
+                lightSensor = indata.Substring(indata.IndexOf(": ")+1).Trim();
             }
             if (indata.Contains("ALARM"))
             {
-                alarm = indata;
+                alarm = indata.Substring(indata.IndexOf(": ")+1).Trim();
             }
             Console.WriteLine("Data Received:");
             Console.Write(indata);
