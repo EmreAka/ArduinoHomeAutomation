@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,7 @@ namespace ArduinoHomeAutomation
         string motion = "NULL";
         string lightSensor = "NULL";
         string alarm = "NULL";
+        string desiredTemperature= "NULL";
 
         public MainWindow()
         {
@@ -45,7 +47,7 @@ namespace ArduinoHomeAutomation
         {
             SerialPort sp = (SerialPort)sender;
             string indata = sp.ReadLine();
-            if (indata.Contains("TEMP"))
+            if (indata.StartsWith("TEMP"))
             {
                 temp = indata.Substring(indata.IndexOf(": ")+1).Trim();
             }
@@ -61,6 +63,10 @@ namespace ArduinoHomeAutomation
             {
                 alarm = indata.Substring(indata.IndexOf(": ")+1).Trim();
             }
+            if (indata.StartsWith("DESIRED"))
+            {
+                desiredTemperature = indata.Substring(indata.IndexOf(": ")+ 1).Trim();
+            }
             Console.WriteLine("Data Received:");
             Console.Write(indata);
             this.Dispatcher.Invoke(() => {
@@ -68,6 +74,7 @@ namespace ArduinoHomeAutomation
                 motionIs.Content = motion;
                 lightIs.Content = lightSensor;
                 alarmIs.Content = alarm;
+                desiredTempIs.Content = desiredTemperature;
             });
         }
 
@@ -79,6 +86,22 @@ namespace ArduinoHomeAutomation
         private void Button_Click1(object sender, RoutedEventArgs e)
         {
             mySerialPort.WriteLine("SETALARMOFF");
+        }
+
+        private void Button_Click2(object sender, RoutedEventArgs e)
+        {
+            mySerialPort.WriteLine("SETTEMP:10");
+        }
+
+        private void Button_Click3(object sender, RoutedEventArgs e)
+        {
+            mySerialPort.WriteLine("SETTEMP:100");
+        }
+
+        private void SendTemp(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine(desiredTemp.Text);
+            mySerialPort.WriteLine("SETTEMP:" + desiredTemp.Text);
         }
     }
 }

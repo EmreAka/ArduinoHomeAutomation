@@ -19,6 +19,9 @@ float TEMP = 0;
 //Alarm's State
 bool isAlarmOn = true;
 
+//Temp's State
+String desiredTemp = "30";
+
 //Serial port stuff
 String inputString = "";         // a String to hold incoming data
 bool stringComplete = false;  // whether the string is complete
@@ -59,6 +62,8 @@ void loop() {
   } else {
     Serial.println("OFF");
   }
+  Serial.print("DESIRED TEMP: ");
+  Serial.println(desiredTemp);
 
   //Checks if any command recieves.
   readComingCommands();
@@ -82,7 +87,7 @@ void loop() {
     digitalWrite(REDLED, LOW);
   }
   //LM35
-  if(TEMP < 30)
+  if(TEMP < desiredTemp.toInt())
   {
     digitalWrite(WHITELED, HIGH);
     digitalWrite(RELAY_01, HIGH);
@@ -121,6 +126,9 @@ void readComingCommands() {
     }
     else if(inputString.equals("SETALARMOFF")){
       isAlarmOn = false;
+    }
+    else if(inputString.startsWith("SETTEMP")){
+      desiredTemp = inputString.substring(inputString.indexOf(":")+1, inputString.length());
     }
     // clear the string:
     inputString = "";
