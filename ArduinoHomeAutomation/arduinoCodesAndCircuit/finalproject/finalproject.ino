@@ -1,15 +1,13 @@
 //Sensor pins.
 int PIR = 7;
-int LDR = A0;
-int LM35 = A1;
+int LM35 = A5;
 
 //LED pins.
-int GREENLED = 8;
-int REDLED = 12;
+int REDLED = 5;
 int WHITELED = 4;
 
 //Relay pins.
-int RELAY_01 = 13;
+int RELAY_01 = 6;
 
 //LM35 Vars.
 int LM35_READING = 0;
@@ -19,6 +17,9 @@ float TEMP = 0;
 //Alarm's State
 bool isAlarmOn = true;
 
+//Relay's State
+bool isRelayOn = false;
+
 //Temp's State
 String desiredTemp = "30";
 
@@ -27,11 +28,10 @@ String inputString = "";         // a String to hold incoming data
 bool stringComplete = false;  // whether the string is complete
 
 void setup() {
-  pinMode(GREENLED, OUTPUT);
   pinMode(PIR, INPUT);
   pinMode(REDLED, OUTPUT);
-  pinMode(LDR, INPUT);
   pinMode(WHITELED, OUTPUT);
+  //analogReference(INTERNAL);
   pinMode(LM35, INPUT);
   pinMode(RELAY_01, OUTPUT);
   // initialize serial:
@@ -41,15 +41,12 @@ void setup() {
 }
 
 void loop() {
-  delay(200);
   LM35_READING = analogRead(LM35);
   TEMP_VOLTAGE = (LM35_READING / 1023.0)*5000;
   TEMP = TEMP_VOLTAGE / 10;
   //sending datas of sensors to serial port.
   Serial.print("MOTION: ");
   Serial.println(digitalRead(PIR));
-  Serial.print("LDR'S VALUE: ");
-  Serial.println(analogRead(LDR));
   Serial.print("LM35 READING: ");
   Serial.println(LM35_READING);
   Serial.print("LM35 VOLTAGE: ");
@@ -64,19 +61,17 @@ void loop() {
   }
   Serial.print("DESIRED TEMP: ");
   Serial.println(desiredTemp);
+  Serial.print("RELAY: ");
+  if (isRelayOn){
+    Serial.println("ON");
+  }
+  else {
+    Serial.println("OFF");
+  }
 
   //Checks if any command recieves.
   readComingCommands();
-  
-  //LDR
-  if(analogRead(LDR) > 500)
-  {
-    digitalWrite(GREENLED, HIGH);    
-  }
-  else
-  {
-    digitalWrite(GREENLED, LOW);
-  }
+ 
   //PIR
   if(digitalRead(PIR) == 1 && isAlarmOn)
   {
@@ -90,11 +85,15 @@ void loop() {
   if(TEMP < desiredTemp.toInt())
   {
     digitalWrite(WHITELED, HIGH);
-    digitalWrite(RELAY_01, HIGH);
   }
   else
   {
     digitalWrite(WHITELED, LOW);
+  }
+  if (isRelayOn){
+    digitalWrite(RELAY_01, HIGH);  
+  }
+  else{
     digitalWrite(RELAY_01, LOW);
   }
 }
@@ -129,6 +128,12 @@ void readComingCommands() {
     }
     else if(inputString.startsWith("SETTEMP")){
       desiredTemp = inputString.substring(inputString.indexOf(":")+1, inputString.length());
+    }
+    else if(inputString.startsWith("SETRELAY01ON")){
+      isRelayOn = true;
+    }
+    else if (inputString.startsWith("SETRELAY01OFF")){
+      isRelayOn = false;
     }
     // clear the string:
     inputString = "";
